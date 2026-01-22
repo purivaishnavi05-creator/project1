@@ -1,52 +1,52 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 function Registration() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!name  !email  !password) {
-      setMessage("All fields are required");
-      return;
-    }
-
-    setMessage("✅ Registration Successful");
+    console.log(user); // send this to backend later
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: "auto", padding: 20 }}>
+    <div className="register-container">
       <h2>Register</h2>
 
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          name="name"
+          placeholder="Enter name"
+          onChange={handleChange}
+          required
         />
 
         <input
           type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          name="email"
+          placeholder="Enter email"
+          onChange={handleChange}
+          required
         />
 
         <input
           type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          name="password"
+          placeholder="Enter password"
+          onChange={handleChange}
+          required
         />
 
         <button type="submit">Register</button>
       </form>
-
-      {message && <p>{message}</p>}
     </div>
   );
 }
